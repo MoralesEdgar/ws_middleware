@@ -3,11 +3,12 @@
 require "Conexion.php";
 
 $manejador = new Conexion();
-$nombre    = $manejador->quotes($_GET['nombre']);
+$nombre    = $manejador->quote($_GET['nombre']);
 
-$resultado = $manejador->query('SELECT INTO productos VALUES(NULL, $nombre)');
+// Consulta para hacer el insert en la BD
+$resultado = $manejador->query("INSERT INTO productos(nombre_producto) VALUES ($nombre)");
 
-if($resultado !== NULL || sizeof($resultado) > 0 ){
+if($resultado !== NULL && sizeof($resultado) > 0 ){
     $resClass = new \stdClass();
     $resClass->resultado = TRUE;
 
